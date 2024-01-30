@@ -1,2 +1,1 @@
-# ADAPT
-ADAPT: Anchored Multimodal Physiological Transformer
+# ADAPT: Anchored Multimodal Physiological Transformer
