@@ -1,0 +1,6 @@
+defaults:
+  - _self_
+  - paths: directories.yaml
+  - multimodal@dataset: stressid
+
+name: test

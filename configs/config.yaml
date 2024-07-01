@@ -1,0 +1,35 @@
+defaults: 
+  - _self_
+  - multimodal: stressid
+  - model: adapt
+  - machine: gpu
+  - paths: directories
+
+trainer:
+  _target_: pytorch_lightning.Trainer
+  val_check_interval: 1.0
+  devices: ${machine.devices}
+  accelerator: ${machine.accelerator}
+  strategy: ${machine.strategy}
+  gradient_clip_val: 1
+  log_every_n_steps: 1
+  num_nodes: ${machine.num_nodes}
+  precision: ${machine.precision}
+
+logger: 
+  _target_: pytorch_lightning.loggers.WandbLogger
+  mode: "online"
+  project: adapt
+  save_dir: ${paths.logs}/wandb
+  name: adapt-stressid
+  log_model: False
+
+seed: 1999
+test: True
+log: True
+checkpoints: True
+contrastive: True
+anchoring: True
+clf: True
+cv: 1
+grid: {}

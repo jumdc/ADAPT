@@ -1,0 +1,26 @@
+path_labels: StressID_Dataset/labels_modalities.csv
+physiological_root: "StressID_Dataset/Physiological"
+audio_root: "StressID_Dataset/Audio"
+video_root: "StressID_Dataset/Videos"
+path_frames: "StressID_Dataset/Frames"
+keep_missing: True
+path_features_video: "StressID_Dataset/train_video_features.txt"
+path_features_video_test: "StressID_Dataset/test_video_features.txt"
+modalities: ["ECG","EDA","RR","AUDIO","VIDEO"]
+hyperparams: {"batch_size":128,"num_workers":5,"sliding_window":True}
+physio: {"window":15000,"stride":7500}
+video: {"window":150,"stride":75,'step':10,"precomputed_video":True}
+transforms: {"augment":False,"transform":False,"type":"magnitude","augment_freq":10,"params":{"sigma":0.02,"knot":4}}
+audio_hyperparams: {"window_audio":480000,"stride_audio":240000,"audio_freq":16000,"feature":"mel-spec","n_fft":2048,"type":"hanning","win_length":2048,"sample_rate":16000,"n_mels":64,"hop_length":1024,"f_min":60,"f_max":7800,stats:[-5.4919195,5.0389895]}
+ECG: 
+  global-mean: [32788.44]  
+  global-std: [1426.1212]
+EDA:
+  global-mean: [18246.48]
+  global-std: [12555.281]
+RR:
+  global-mean: [32779.832]  
+  global-std: [7963.4375]
+AUDIO: 
+  global-mean: [0]
+  global-std: [1]

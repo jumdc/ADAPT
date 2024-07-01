@@ -1,0 +1,51 @@
+encoders: 
+  type: ["id","byola","resnet-ts"]
+  pretrained: True
+  projection: True
+  freeze: False
+  n_dims_audio: 512
+  ts_setting: {"hidden":16,"bottleneck":false,"kernel":200,"depth":1,"rezero":False}
+anchor: "VIDEO"
+transformer: 
+  _target_: src.models.modules.attention.Attention
+  d_model: 64
+  dropout: 0.2
+  n_heads: 4
+  n_blocks: 1
+supervised_loss: 
+  lr: 1e-4
+  max_epochs: 70
+  weight_decay: 0.05
+  warmup: 4
+  min_lr: 1e-8
+  sch: True
+contrastive_loss: 
+  lr: 1e-4
+  weight_decay: 0.0001
+  max_epochs: 70
+  warmup: 4
+  min_lr: 1e-8
+  learnable_scale: True
+  sch: True
+  modality_dropout: True
+  temperature: 0.07
+  temperature_max: 1
+  temperature_min: 0.07
+  ts_augment: True
+  cos: false
+  gamma: 0.05
+  noise_sigma: 0.1
+anchoring_loss: 
+  lr: 0.001
+  max_epochs: 70
+  weight_decay: 0.0001
+  cos: True
+  learnable_scale: False
+  warmup: 4
+  min_lr: 1e-8
+  sch: True
+  temperature_max: 1
+  temperature_min: 0.07
+  period: 100
+  gamma: 0.05
+weight_path_byola: ext/byol_a/pretrained_weights/AudioNTT2020-BYOLA-64x96d512.pth

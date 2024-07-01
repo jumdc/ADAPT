@@ -1,0 +1,19 @@
+torchvision>=0.11.0
+pytorch-lightning==1.9.1
+torchmetrics==0.10.0
+
+hydra-core==1.2.0
+hydra-colorlog==1.2.0
+hydra-optuna-sweeper==1.2.0
+einops==0.7.0
+timm==0.9.8
+librosa
+wandb
+pyrootutils     # standardizing the project root setup
+pre-commit      # hooks for applying linters on commit
+opencv-python
+pandas
+numpy
+scikit-learn
+matplotlib
+hiera-transformer
