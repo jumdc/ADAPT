@@ -1,10 +1,5 @@
-torchvision>=0.11.0
-pytorch-lightning==1.9.1
-torchmetrics==0.10.0
-
-hydra-core==1.2.0
-hydra-colorlog==1.2.0
-hydra-optuna-sweeper==1.2.0
+pytorch-lightning
+hydra-core
 einops==0.7.0
 timm==0.9.8
 librosa
@@ -17,3 +12,4 @@ numpy
 scikit-learn
 matplotlib
 hiera-transformer
+torchaudio 

@@ -1,0 +1,1 @@
+python train.py log=False

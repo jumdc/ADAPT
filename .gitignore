@@ -9,6 +9,7 @@ __pycache__/
 
 checks/
 
+cfg/paths/my_dir.yaml
 
 outputs/
 lightning_logs/

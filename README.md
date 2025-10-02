@@ -45,34 +45,40 @@ Implementation of ADAPT @ MIDL 2024  [[Paper]](https://openreview.net/pdf?id=WDZ
 ```
 
 # 🚀 Quickstart
-## Set-Up the environment
-- Install Anaconda or MiniConda
-- Run `conda create -n multi python=3.9`
-- Activate multi: `conda activate multi`
-- Install pytorch 1.12 and torchvision 0.13 that match your device
-    - For GPU: 
-    `conda install pytorch==1.12.0 torchvision==0.13.0 cudatoolkit=11.6 -c pytorch -c conda-forge`
-- Dependencies apart from `pytorch` may be install with the `pip isntall -r requirements.txt`.
+
+## Set up the environment
+
+- Install Anaconda or Miniconda
+- Run `conda create -n multi python=3.11`
+- Install PyTorch:
+    - For GPU:
+      `pip3 install torch torchvision` (ensure CUDA ≤ 12.8; otherwise, torchaudio will not work)
+- Dependencies apart from PyTorch may be installed with `pip install -r requirements.txt`.
+
+## Set up the project
+- Fill in the path to the project in the `configs/paths/directories.yaml`
+    - data: path to the data
+    - misc: path for miscellaneous files (pretrained weights, etc.)
+    - logs: path to the logs (wandb, etc.)
+- Clone the BYOL-A repository: `git clone https://github.com/nttcslab/byol-a.git`  in the `misc` directory.
 
 ## Prepare the data
-- For the dataset, $\texttt{StressID}$ information and data request can be found [here](https://project.inria.fr/stressid/).
-- Put the data in a directory called "StressID"
-- Change the path in the cfg/paths/directories.yaml
+- For the dataset, information about $\texttt{StressID}$ and data requests can be found [here](https://project.inria.fr/stressid/).
+- Put the data in a folder called "StressID" in the `data` directory.
 - Extract the features from the videos. 
 
-
-1. Training video features (using a sliding window)
+1. Extract video features (using a sliding window)
 ```bash
-python src/utils/preprocessing/video_features.py name=StressID_Dataset/train_video_features.txt
+python extract_video_features.py name=StressID_Dataset/train_video_features.txt
 ```
-2. Testing video features (no sliding window)
+2. Extract video features (no sliding window)
 ```bash
-python src/utils/preprocessing/video_features.py name=StressID_Dataset/test_video_features.txt  dataset.video.window=null dataset.hyperparams.batch_size=1 dataset.video.step=null
+python extract_video_features.py name=StressID_Dataset/test_video_features.txt  dataset.video.window=null dataset.hyperparams.batch_size=1 dataset.video.step=null
 ```
 
 ## Train ADAPT
 
-The code is adapted to wandb logger, if you wish to use a logger make sure to be logged in to wandb before starting.
+The code uses the Weights & Biases (wandb) logger. If you wish to use a logger, make sure you are logged in to wandb before starting.
 To run our code: 
 
 ```bash

@@ -211,7 +211,7 @@ class VideoDataset(Dataset):
 
 
 @hydra.main(
-    version_base="1.2", config_path=root / "configs", config_name="video-extract.yaml"
+    version_base="1.2", config_path="configs", config_name="video-extract.yaml"
 )
 def main(cfg) -> bool:
     """Compute features for a given model."""

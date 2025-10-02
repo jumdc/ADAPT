@@ -60,23 +60,19 @@ class Encoders(nn.Module):
         """
         out_features = self.cfg["model"]["transformer"]["d_model"]
         encoder = []
-        ### VIDEO ###
+        # -- VIDEO
         if modality == "VIDEO":
             if "hiera" in self.cfg["model"]["encoders"]["type"]:
                 logging.info("Using hiera")
-                directory = (
-                    "/gpfswork/rech/oyr/urt67oj/misc/ext/hiera"
-                    if self.cfg["paths"]["___config_name___"] == "jz"
-                    else None
-                )
                 model, in_features = make_hiera(
-                    freeze=self.cfg["model"]["encoders"]["freeze"], directory=directory
+                    freeze=self.cfg["model"]["encoders"]["freeze"], directory=None
                 )
                 encoder.append(("encoder", model))
             else:
                 model = nn.Identity()  # featurization is already done
                 in_features = 768
-        ### AUDIO ###
+
+        # -- AUDIO
         elif modality == "AUDIO":
             if "byola" in self.cfg["model"]["encoders"]["type"]:
                 logging.info("Using byola")
@@ -87,32 +83,31 @@ class Encoders(nn.Module):
                     else torch.device("cpu")
                 )
                 if self.cfg["model"]["encoders"]["pretrained"]:
+                    path = os.path.join(
+                        self.cfg["paths"]["misc"],
+                        "byol_a/pretrained_weights",
+                        self.cfg["model"]["weight_path_byola"],
+                    )
+                    # state_dict = torch.load(path, map_location=device, weights_only=False)
+                    # print(state_dict.keys())
                     model.load_weight(
-                        os.path.join(
-                            self.cfg["paths"]["misc"],
-                            self.cfg["model"]["weight_path_byola"],
-                        ),
-                        device=device,
+                        path,
+                        device=device
                     )
                 in_features = model.fc[0].in_features
                 model.fc = nn.Identity()
                 encoder.append(("encoder", model))
             else:
                 raise ValueError(f"Unknown encoder for modality {modality}")
-        ### IMAGE ###
+        # -- IMAGE
         elif modality == "IMAGE":
             if "hiera-image" in self.cfg["model"]["encoders"]["type"]:
                 logging.info("Using hiera image")
-                directory = (
-                    "/gpfswork/rech/oyr/urt67oj/misc/ext/hiera"
-                    if self.cfg["paths"]["___config_name___"] == "jz"
-                    else None
-                )
-                model, in_features = make_hiera_image(freeze=False, directory=directory)
+                model, in_features = make_hiera_image(freeze=False, directory=None)
                 encoder.append(("encoder", model))
             else:
                 raise ValueError(f"Unknown encoder for modality {modality}")
-        ### EDA, ECG, RR ###
+        # -- Time Series:EDA, ECG, RR
         elif modality in ["EDA", "ECG", "RR"]:
             if "resnet-ts" in self.cfg["model"]["encoders"]["type"]:
                 logging.info("Using resnet-ts")

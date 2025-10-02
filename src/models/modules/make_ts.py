@@ -4,10 +4,10 @@ Model for time series features extraction.
 Resnet implementation follows :
 Deep learning for time series classification: a review, Fawaz et al.
 
-    
+
 Inception implementation follows:
 ---------------------------------
-From https://arxiv.org/abs/1909.04939 
+From https://arxiv.org/abs/1909.04939
 and adapted from https://github.com/timeseriesAI/tsai/blob/main/tsai/models/InceptionTime.py
 
 """

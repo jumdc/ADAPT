@@ -48,4 +48,4 @@ anchoring_loss:
   temperature_min: 0.07
   period: 100
   gamma: 0.05
-weight_path_byola: ext/byol_a/pretrained_weights/AudioNTT2020-BYOLA-64x96d512.pth
+weight_path_byola: AudioNTT2020-BYOLA-64x96d512.pth
